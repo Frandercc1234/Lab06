@@ -25,7 +25,7 @@ const config = {
   authRequired: false,
   auth0Logout: true,
   secret: SECRET,
-  baseURL: "http://localhost:3000",
+  baseURL: "https://lab06-noqr.onrender.com",
   clientID: OKTA_CLIENT_ID,
   issuerBaseURL: OKTA_ISSUER_URI,
 };
