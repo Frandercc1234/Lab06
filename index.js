@@ -19,6 +19,7 @@ const OKTA_CLIENT_SECRET = process.env.OKTA_CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
 const PORT = process.env.PORT || "3000";
 const SECRET = process.env.SECRET;
+const BASEURL = process.env.BASEURL;
 
 // Esto se los dará Okta.
 const config = {
@@ -34,7 +35,7 @@ let oidc = new ExpressOIDC({
   issuer: OKTA_ISSUER_URI,
   client_id: OKTA_CLIENT_ID,
   client_secret: OKTA_CLIENT_SECRET,
-  appBaseUrl: "http://localhost:3000",
+  appBaseUrl: BASEURL,
   redirect_uri: REDIRECT_URI,
   appBaseUrl: process.env.BASEURL,
   routes: {
