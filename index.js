@@ -35,8 +35,9 @@ let oidc = new ExpressOIDC({
   issuer: OKTA_ISSUER_URI,
   client_id: OKTA_CLIENT_ID,
   client_secret: OKTA_CLIENT_SECRET,
-  appBaseUrl: BASEURL,
+  appBaseUrl: process.env.BASEURL,
   redirect_uri: REDIRECT_URI,
+
   routes: {
     callback: { defaultRedirect: "/dashboard" },
   },
