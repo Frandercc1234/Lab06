@@ -25,7 +25,7 @@ const config = {
   authRequired: false,
   auth0Logout: true,
   secret: SECRET,
-  baseURL: "https://lab06-noqr.onrender.com",
+  baseURL: process.env.BASEURL,
   clientID: OKTA_CLIENT_ID,
   issuerBaseURL: OKTA_ISSUER_URI,
 };
@@ -34,9 +34,11 @@ let oidc = new ExpressOIDC({
   issuer: OKTA_ISSUER_URI,
   client_id: OKTA_CLIENT_ID,
   client_secret: OKTA_CLIENT_SECRET,
+  appBaseUrl: "http://localhost:3000",
   redirect_uri: REDIRECT_URI,
+  appBaseUrl: process.env.BASEURL,
   routes: {
-    callback: { defaultRedirect: "https://lab06-noqr.onrender.com/dashboard" },
+    callback: { defaultRedirect: "/dashboard" },
   },
   scope: "openid profile",
 });
@@ -57,6 +59,8 @@ app.use(
   session({
     cookie: { httpOnly: true },
     secret: SECRET,
+    resave: false,
+    saveUninitialized: false,
   })
 );
 
@@ -76,8 +80,7 @@ app.get("/dashboard", requiresAuth(), (req, res) => {
   res.render("dashboard", { user: userInfo });
 });
 
-const openIdClient = require("openid-client");
-openIdClient.Issuer.defaultHttpOptions.timeout = 20000;
+// Removed timeout setting as it's not needed
 
 oidc.on("ready", () => {
   console.log("Server running on port: " + PORT);
