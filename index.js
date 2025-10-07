@@ -39,7 +39,10 @@ let oidc = new ExpressOIDC({
   redirect_uri: REDIRECT_URI,
 
   routes: {
-    callback: { defaultRedirect: "/dashboard" },
+    callback: {
+      path: "/authorization-code/callback", // ← ruta explícita
+      defaultRedirect: "/dashboard",
+    },
   },
   scope: "openid profile",
 });
